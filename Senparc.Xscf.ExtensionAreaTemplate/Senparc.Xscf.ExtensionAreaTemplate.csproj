@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <!--<RazorLangVersion>2.2</RazorLangVersion>-->
+        <Version>0.2.2.1-beta1</Version>
+        <AssemblyName>Senparc.Xscf.ExtensionAreaTemplate</AssemblyName>
+        <RootNamespace>Senparc.Xscf.ExtensionAreaTemplate</RootNamespace>
+        <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+        <Description>Senparc.Xscf.ExtensionAreaTemplate 这是一个开发者文档,用于帮助开发者快速的了解框架的整体结构和使用方法</Description>
+        <Copyright>SenparcCoreFramework</Copyright>
+        <PackageTags>SenparcCoreFramework,SCF,Senparc.Xscf.ExtensionAreaTemplate</PackageTags>
+        <Authors>SenparcCoreFramework</Authors>
+        <Owners>SenparcCoreFramework</Owners>
+        <PackageLicenseUrl>https://github.com/SenparcCoreFramework/ScfPackageSources/blob/master/LICENSE</PackageLicenseUrl>
+        <Title>XSCF 开发者文档模块</Title>
+        <ProjectUrl> https://github.com/SenparcCoreFramework/SCF</ProjectUrl>
+        <PackageProjectUrl>https://github.com/SenparcCoreFramework/ScfPackageSources</PackageProjectUrl>
+        <PackageIconUrl>http://sdk.weixin.senparc.com/Images/logo-square-scf.jpg</PackageIconUrl>
+        <PackageReleaseNotes>
+            v0.1 创世
+        </PackageReleaseNotes>
+        <RepositoryUrl> https://github.com/SenparcCoreFramework/ScfPackageSources</RepositoryUrl>
+        <Configurations>Debug;Release;Test</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <OutputPath>..\..\BuildOutPut</OutputPath>
+        <DocumentationFile>..\..\BuildOutPut\Senparc.Xscf.ExtensionAreaTemplate.XML</DocumentationFile>
+        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+        <Optimize>true</Optimize>
+        <DebugType>pdbonly</DebugType>
+        <ErrorReport>prompt</ErrorReport>
+        <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.119-beta1" />
+        <PackageReference Include="Senparc.Scf.Core" Version="0.3.119-beta1" />
+        <PackageReference Include="Senparc.Scf.Service" Version="0.3.119-beta1" />
+        <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.119.2-beta1" />
+    </ItemGroup>
+
+</Project>
