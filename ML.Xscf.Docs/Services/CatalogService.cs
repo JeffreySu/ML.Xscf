@@ -119,8 +119,6 @@ namespace ML.Xscf.Docs.Services
         /// <summary>
         /// 获取缓存中的数据
         /// </summary>
-        /// <param name="isRefresh"></param>
-        /// <returns></returns>
         public async Task RemoveCatalogAsync()
         {
             await _distributedCache.RemoveAsync(CatalogCacheKey);
@@ -135,8 +133,11 @@ namespace ML.Xscf.Docs.Services
         {
             List<CatalogDto> selectListItems = null;
             byte[] selectLiteItemBytes = await _distributedCache.GetAsync(CatalogCacheKey);
-            //if (selectLiteItemBytes == null || isRefresh)
-            SenparcTrace.SendCustomLog("selectLiteItemBytes data is :", System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
+            //获取的缓存不为空的时候，输出日志信息
+            if (selectLiteItemBytes != null || isRefresh) 
+            {
+                SenparcTrace.SendCustomLog("selectLiteItemBytes data is :", System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
+            }
 
             List<Catalog> catalogs = (await GetFullListAsync(_ => _.Flag == false).ConfigureAwait(false)).OrderByDescending(z => z.AddTime).ToList();
             selectListItems = Mapper.Map<List<CatalogDto>>(catalogs);
