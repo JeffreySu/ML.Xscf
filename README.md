@@ -16,6 +16,8 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 
 SCF框架的模块包，能快速的集成到SCF的框架中，即插即用，非常方便
 
+[![Build status](https://dev.azure.com/OutSideProject/MLTechnology/_apis/build/status/Nuget-ML.Xscf-CI)](https://dev.azure.com/OutSideProject/MLTechnology/_build/latest?definitionId=33)
+
 ## 环境要求
 
 - Visual Studio 2019+ 或 VS Code 最新版本
