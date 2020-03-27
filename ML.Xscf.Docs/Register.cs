@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
@@ -38,7 +39,7 @@ namespace ML.Xscf.Docs
 
         public override string Name => "ML.Xscf.Docs";
         public override string Uid => "519E8526-A738-465A-9DB8-2762E8441762";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.0.1.16";//必须填写版本号
+        public override string Version => "0.0.1.17";//必须填写版本号
 
         public override string MenuName => "开发者文档";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
@@ -72,6 +73,12 @@ namespace ML.Xscf.Docs
                     if(catalogRows <= 0)
                     {
                         await catalogService.InitCatalog();
+                    }
+                    var articleService = serviceProvider.GetService<ArticleService>();
+                    var articleRows = articleService.GetCount(w => true);
+                    if(articleRows <= 0)
+                    {
+                        await articleService.InitArticle();
                     }
                     break;
                 case InstallOrUpdate.Update:
@@ -108,6 +115,7 @@ namespace ML.Xscf.Docs
 
         public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>() {
              new AreaPageMenuItem(GetAreaHomeUrl(),"目录管理","fa fa-laptop"),
+             new AreaPageMenuItem(GetAreaUrl("/Admin/DocsArticle/Index"),"内容管理","fa fa-bookmark-o"),
              new AreaPageMenuItem(GetAreaUrl("/Admin/MyApp/Index"),"随机目录生成","fa fa-bookmark-o"),
         };
 
@@ -123,10 +131,10 @@ namespace ML.Xscf.Docs
             return builder;
         }
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             //任何需要注册的对象
-            return base.AddXscfModule(services);
+            return base.AddXscfModule(services,configuration);
         }
 
         #endregion

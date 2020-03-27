@@ -34,10 +34,31 @@ namespace ML.Xscf.Docs
             CatalogId = catalogId;
             CatalogMark = catalogMark;
             Content = content;
+            AddTime = DateTime.Now;
+            this.LastUpdateTime = AddTime;
         }
 
         public Article(ArticleDto articleDto)
         {
+            CatalogId = articleDto.CatalogId;
+            CatalogMark = articleDto.CatalogMark;
+            Content = articleDto.Content;
+            AddTime = DateTime.Now;
+            this.LastUpdateTime = AddTime;
+        }
+
+        public void CreateContent(int catalogId,string catalogMark,string content)
+        {
+            CatalogId = catalogId;
+            CatalogMark = catalogMark;
+            Content = content;
+            AddTime = DateTime.Now;
+            this.LastUpdateTime = AddTime;
+        }
+
+        public void Update(ArticleDto articleDto)
+        {
+            this.LastUpdateTime = DateTime.Now;
             CatalogId = articleDto.CatalogId;
             CatalogMark = articleDto.CatalogMark;
             Content = articleDto.Content;

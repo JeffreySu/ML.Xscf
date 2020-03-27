@@ -9,6 +9,10 @@ namespace ML.Xscf.Docs.Models.DatabaseModel.Dto
     public class ArticleDto : DtoBase
     {
         /// <summary>
+        /// 内容Id
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// 目录Id
         /// </summary>
         public int CatalogId { get; private set; }
