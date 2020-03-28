@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>0.0.1.17-beta1</Version>
+    <Version>0.0.1.18-beta1</Version>
     <AssemblyName>ML.Xscf.Docs</AssemblyName>
     <RootNamespace>ML.Xscf.Docs</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -18,7 +18,7 @@
     <PackageIconUrl>http://image.milisx.com/logox200.png</PackageIconUrl>
     <PackageReleaseNotes>
       v0.1 创世
-      v0.1.17 增加了目录和内容管理
+      v0.1.18 增加目录和内容管理
     </PackageReleaseNotes>
     <RepositoryUrl> https://github.com/zhao365845726/ML.Xscf.git </RepositoryUrl>
     <Configurations>Debug;Release;Test</Configurations>

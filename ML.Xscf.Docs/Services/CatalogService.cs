@@ -134,19 +134,22 @@ namespace ML.Xscf.Docs.Services
         public async Task<IEnumerable<CatalogDto>> GetCatalogDtoByCacheAsync(bool isRefresh = false)
         {
             List<CatalogDto> selectListItems = null;
-            byte[] selectLiteItemBytes = await _distributedCache.GetAsync(CatalogCacheKey);
-            //if (selectLiteItemBytes == null || isRefresh)
-            SenparcTrace.SendCustomLog("selectLiteItemBytes data is :", System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
+            //byte[] selectLiteItemBytes = await _distributedCache.GetAsync(CatalogCacheKey);
+            //if (selectLiteItemBytes != null || isRefresh)
+            //{
+            //    SenparcTrace.SendCustomLog("selectLiteItemBytes data is :", System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
+            //    selectListItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CatalogDto>>(System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
+            //    return selectListItems;
+            //}
 
             List<Catalog> catalogs = (await GetFullListAsync(_ => _.Flag == false).ConfigureAwait(false)).OrderByDescending(z => z.AddTime).ToList();
             selectListItems = Mapper.Map<List<CatalogDto>>(catalogs);
             string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(selectListItems);
-            await _distributedCache.RemoveAsync(CatalogCacheKey);
-            await _distributedCache.RemoveAsync(CatalogTreeCacheKey);
-            await _distributedCache.SetAsync(CatalogCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr));
-            await _distributedCache.SetStringAsync(CatalogTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetCatalogTreesMainRecursive(selectListItems)));
+            //await _distributedCache.RemoveAsync(CatalogCacheKey);
+            //await _distributedCache.RemoveAsync(CatalogTreeCacheKey);
+            //await _distributedCache.SetAsync(CatalogCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr));
+            //await _distributedCache.SetStringAsync(CatalogTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetCatalogTreesMainRecursive(selectListItems)));
 
-            //    selectListItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CatalogDto>>(System.Text.Encoding.UTF8.GetString(selectLiteItemBytes));
             return selectListItems;
         }
 
