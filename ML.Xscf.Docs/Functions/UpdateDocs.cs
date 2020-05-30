@@ -1,8 +1,10 @@
 ﻿using LibGit2Sharp;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Scf.XscfBase;
 using Senparc.Scf.XscfBase.Functions;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ML.Xscf.Docs.Functions
@@ -42,26 +44,8 @@ namespace ML.Xscf.Docs.Functions
                    FileHelper.TryCreateDirectory(copyDir);
 
                    var gitUrl = "https://gitee.com/SenparcCoreFramework/ScfDocs.git";
-                   sb.AppendLine($"从 {gitUrl} 获取文档");
                    Repository.Clone(gitUrl, copyDir);
                    sb.AppendLine($"仓库创建于 {copyDir}");
-
-                   //var url = "https://gitee.com/SenparcCoreFramework/ScfDocs/repository/archive/master.zip";
-                   //Dictionary<string, string> headerAddition = new Dictionary<string, string>();
-                   //headerAddition["User-Agent"] = "wget";
-                   ////var httpResponse = await RequestUtility.HttpResponseGetAsync(base.ServiceProvider, url, headerAddition: headerAddition).ConfigureAwait(false);
-                   ////using (var stream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false))
-
-                   //var httpResponse = RequestUtility.HttpResponseGet(base.ServiceProvider, url, headerAddition: headerAddition);
-                   //using (var stream = httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
-                   //{
-                   //    var len = stream.Length;
-                   //    using (var fs = new FileStream("a.zip", FileMode.Create))
-                   //    {
-                   //        stream.CopyTo(fs);
-                   //        fs.Flush();
-                   //    }
-                   //}
                });
         }
     }
