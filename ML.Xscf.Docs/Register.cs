@@ -21,6 +21,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Senparc.Scf.Core.Config;
+using ML.Xscf.Docs.Functions;
 
 namespace ML.Xscf.Docs
 {
@@ -38,7 +39,7 @@ namespace ML.Xscf.Docs
 
         public override string Name => "ML.Xscf.Docs";
         public override string Uid => "519E8526-A738-465A-9DB8-2762E8441762";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.0.1.92";//必须填写版本号
+        public override string Version => "0.0.1.94";//必须填写版本号
 
         public override string MenuName => "开发者文档";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
@@ -47,7 +48,9 @@ namespace ML.Xscf.Docs
         /// <summary>
         /// 注册当前模块需要支持的功能模块
         /// </summary>
-        public override IList<Type> Functions => new Type[] { };
+        public override IList<Type> Functions => new Type[] {
+            typeof(DownloadSourceCode)
+        };
 
 
         /// <summary>
