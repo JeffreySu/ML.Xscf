@@ -39,13 +39,31 @@ namespace ML.Xscf.Docs.Functions
                {
                    var wwwrootDir = Path.Combine(Senparc.CO2NET.Config.RootDictionaryPath, "wwwroot");
                    var copyDir = Path.Combine(wwwrootDir, "ScfDocs");
-                 
+
                    //创建目录
                    FileHelper.TryCreateDirectory(wwwrootDir);
                    FileHelper.TryCreateDirectory(copyDir);
 
                    var gitUrl = "https://gitee.com/SenparcCoreFramework/ScfDocs.git";
-                   Repository.Clone(gitUrl, copyDir);
+                   try
+                   {
+                       Repository.Clone(gitUrl, copyDir, new CloneOptions()
+                       {
+                           IsBare = false,
+                       });
+                   }
+                   catch (Exception)
+                   {
+
+                     var mergeResult =  LibGit2Sharp.Commands.Pull(
+                                                  new Repository(copyDir), 
+                                                  new Signature("JeffreySu", "www.jeffrey.su@gmail.com", SystemTime.Now),
+                                                  new PullOptions());
+                       sb.AppendLine("已有文件存在，开始 pull 更新");
+                       sb.AppendLine(mergeResult.Status.ToString());
+                   }
+
+
                    sb.AppendLine($"仓库创建于 {copyDir}");
                });
         }
