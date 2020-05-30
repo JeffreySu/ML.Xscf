@@ -49,7 +49,7 @@ namespace ML.Xscf.Docs
         /// 注册当前模块需要支持的功能模块
         /// </summary>
         public override IList<Type> Functions => new Type[] {
-            typeof(DownloadSourceCode)
+            typeof(UpdateDocs)
         };
 
 
