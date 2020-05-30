@@ -17,6 +17,16 @@ namespace ML.Xscf.Docs.Functions
 
         }
 
+        /// <summary>
+        /// 版本信息
+        /// </summary>
+        public class UpdateDocs_Version
+        {
+            public string Version { get; set; }
+            public DateTime UpdateTime { get; set; }
+            public string WhatsNew { get; set; }
+        }
+
         //注意：Name 必须在单个 Xscf 模块中唯一！
         public override string Name => "更新文档";
 
@@ -55,16 +65,29 @@ namespace ML.Xscf.Docs.Functions
                    catch (Exception)
                    {
 
-                     var mergeResult =  LibGit2Sharp.Commands.Pull(
-                                                  new Repository(copyDir), 
-                                                  new Signature("JeffreySu", "www.jeffrey.su@gmail.com", SystemTime.Now),
-                                                  new PullOptions());
+                       var mergeResult = LibGit2Sharp.Commands.Pull(
+                                                    new Repository(copyDir),
+                                                    new Signature("JeffreySu", "www.jeffrey.su@gmail.com", SystemTime.Now),
+                                                    new PullOptions());
                        sb.AppendLine("已有文件存在，开始 pull 更新");
                        sb.AppendLine(mergeResult.Status.ToString());
                    }
 
 
                    sb.AppendLine($"仓库创建于 {copyDir}");
+
+                   UpdateDocs_Version versionData = null;
+                   var versionFile = Path.Combine(copyDir, "version.json");
+                   using (var fs = new FileStream(versionFile, FileMode.Open))
+                   {
+                       using (var sr = new StreamReader(fs))
+                       {
+                           var versionJson = sr.ReadToEnd();
+                           versionData = versionJson.GetObject<UpdateDocs_Version>();
+                       }
+                   }
+
+                   result.Message = $"更新成功，当前版本：{versionData.Version}，更新时间：{versionData.UpdateTime.ToShortDateString()}，What's New：{versionData.WhatsNew ?? "无"}";
                });
         }
     }
