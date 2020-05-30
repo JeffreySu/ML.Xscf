@@ -39,7 +39,6 @@ namespace ML.Xscf.Docs.Functions
             return FunctionHelper.RunFunction<UpdateDocs_Parameters>(param, (typeParam, sb, result) =>
             {
 
-
                 //if (Enum.TryParse<DownloadSourceCode_Parameters.Parameters_Site>(typeParam.Site.SelectedValues.FirstOrDefault()/*单选可以这样做，如果是多选需要遍历*/, out var siteType))
                 //{
                 //    switch (siteType)
