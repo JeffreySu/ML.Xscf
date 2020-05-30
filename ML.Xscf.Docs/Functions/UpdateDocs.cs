@@ -1,13 +1,9 @@
-﻿using Senparc.CO2NET.HttpUtility;
+﻿using LibGit2Sharp;
+using Senparc.CO2NET.Helpers;
 using Senparc.Scf.XscfBase;
 using Senparc.Scf.XscfBase.Functions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ML.Xscf.Docs.Functions
 {
@@ -36,42 +32,37 @@ namespace ML.Xscf.Docs.Functions
         /// <returns></returns>
         public override FunctionResult Run(IFunctionParameter param)
         {
+            Console.WriteLine("start");
             /* 这里是处理文字选项（单选）的一个示例 */
-            return FunctionHelper.RunFunction<UpdateDocs_Parameters>(param, async (typeParam, sb, result) =>
-            {
-                var url = "https://gitee.com/SenparcCoreFramework/ScfDocs/repository/archive/master.zip";
-                Dictionary<string, string> headerAddition = new Dictionary<string, string>();
-                headerAddition["User-Agent"] = "wget";
-                var httpResponse = await RequestUtility.HttpResponseGetAsync(base.ServiceProvider, url, headerAddition: headerAddition).ConfigureAwait(false);
-                using (var stream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                {
-                    var len = stream.Length;
+            return FunctionHelper.RunFunction<UpdateDocs_Parameters>(param, (typeParam, sb, result) =>
+               {
+                   var wwwrootDir = Path.Combine(Senparc.CO2NET.Config.RootDictionaryPath, "wwwroot");
+                   FileHelper.TryCreateDirectory(wwwrootDir);
+                   var copyDir = Path.Combine(wwwrootDir, "scf_docs");
+                   FileHelper.TryCreateDirectory(copyDir);
 
+                   var gitUrl = "https://gitee.com/SenparcCoreFramework/ScfDocs.git";
+                   sb.AppendLine($"从 {gitUrl} 获取文档");
+                   Repository.Clone(gitUrl, copyDir);
+                   sb.AppendLine($"仓库创建于 {copyDir}");
 
-                }
+                   //var url = "https://gitee.com/SenparcCoreFramework/ScfDocs/repository/archive/master.zip";
+                   //Dictionary<string, string> headerAddition = new Dictionary<string, string>();
+                   //headerAddition["User-Agent"] = "wget";
+                   ////var httpResponse = await RequestUtility.HttpResponseGetAsync(base.ServiceProvider, url, headerAddition: headerAddition).ConfigureAwait(false);
+                   ////using (var stream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false))
 
-                //if (Enum.TryParse<DownloadSourceCode_Parameters.Parameters_Site>(typeParam.Site.SelectedValues.FirstOrDefault()/*单选可以这样做，如果是多选需要遍历*/, out var siteType))
-                //{
-                //    switch (siteType)
-                //    {
-                //        case DownloadSourceCode_Parameters.Parameters_Site.GitHub:
-                //            result.Message = "https://github.com/SenparcCoreFramework/ScfDocs/archive/master.zip";
-                //            break;
-                //        case DownloadSourceCode_Parameters.Parameters_Site.Gitee:
-                //            result.Message = "https://gitee.com/SenparcCoreFramework/ScfDocs/archive/master.zip";
-                //            break;
-                //        default:
-                //            result.Message = "未知的下载地址";
-                //            result.Success = false;
-                //            break;
-                //    }
-                //}
-                //else
-                //{
-                //    result.Message = "未知的下载参数";
-                //    result.Success = false;
-                //}
-            });
+                   //var httpResponse = RequestUtility.HttpResponseGet(base.ServiceProvider, url, headerAddition: headerAddition);
+                   //using (var stream = httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
+                   //{
+                   //    var len = stream.Length;
+                   //    using (var fs = new FileStream("a.zip", FileMode.Create))
+                   //    {
+                   //        stream.CopyTo(fs);
+                   //        fs.Flush();
+                   //    }
+                   //}
+               });
         }
     }
 }
