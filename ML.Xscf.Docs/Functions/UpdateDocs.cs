@@ -20,7 +20,7 @@ namespace ML.Xscf.Docs.Functions
         //注意：Name 必须在单个 Xscf 模块中唯一！
         public override string Name => "更新文档";
 
-        public override string Description => "更新最新的官方文档";
+        public override string Description => "从 Gitee 上更新最新的官方文档。官方地址：https://gitee.com/SenparcCoreFramework/ScfDocs";
         public override Type FunctionParameterType => typeof(UpdateDocs_Parameters);
 
         public UpdateDocs(IServiceProvider serviceProvider) : base(serviceProvider)
@@ -34,13 +34,14 @@ namespace ML.Xscf.Docs.Functions
         /// <returns></returns>
         public override FunctionResult Run(IFunctionParameter param)
         {
-            Console.WriteLine("start");
             /* 这里是处理文字选项（单选）的一个示例 */
             return FunctionHelper.RunFunction<UpdateDocs_Parameters>(param, (typeParam, sb, result) =>
                {
                    var wwwrootDir = Path.Combine(Senparc.CO2NET.Config.RootDictionaryPath, "wwwroot");
+                   var copyDir = Path.Combine(wwwrootDir, "ScfDocs");
+                 
+                   //创建目录
                    FileHelper.TryCreateDirectory(wwwrootDir);
-                   var copyDir = Path.Combine(wwwrootDir, "scf_docs");
                    FileHelper.TryCreateDirectory(copyDir);
 
                    var gitUrl = "https://gitee.com/SenparcCoreFramework/ScfDocs.git";

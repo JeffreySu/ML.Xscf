@@ -1,27 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Trace;
+using ML.Xscf.Docs.Functions;
 using ML.Xscf.Docs.Models;
 using ML.Xscf.Docs.Models.DatabaseModel;
 using ML.Xscf.Docs.Models.DatabaseModel.Dto;
 using ML.Xscf.Docs.Services;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Areas;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Senparc.Scf.Core.Config;
-using ML.Xscf.Docs.Functions;
 
 namespace ML.Xscf.Docs
 {
@@ -39,7 +36,7 @@ namespace ML.Xscf.Docs
 
         public override string Name => "ML.Xscf.Docs";
         public override string Uid => "519E8526-A738-465A-9DB8-2762E8441762";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.0.1.94";//必须填写版本号
+        public override string Version => "0.0.2";//必须填写版本号
 
         public override string MenuName => "开发者文档";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
@@ -70,13 +67,13 @@ namespace ML.Xscf.Docs
                     //新安装,建目录
                     var catalogService = serviceProvider.GetService<CatalogService>();
                     var catalogRows = catalogService.GetCount(z => true);
-                    if(catalogRows <= 0)
+                    if (catalogRows <= 0)
                     {
                         await catalogService.InitCatalog();
                     }
                     var articleService = serviceProvider.GetService<ArticleService>();
                     var articleRows = articleService.GetCount(w => true);
-                    if(articleRows <= 0)
+                    if (articleRows <= 0)
                     {
                         await articleService.InitArticle();
                     }
@@ -97,7 +94,7 @@ namespace ML.Xscf.Docs
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
             MLEntities mlEntities = serviceProvider.GetService<MLEntities>();
-            
+
             //指定需要删除的数据实体
 
             //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
@@ -134,7 +131,7 @@ namespace ML.Xscf.Docs
         public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             //任何需要注册的对象
-            return base.AddXscfModule(services,configuration);
+            return base.AddXscfModule(services, configuration);
         }
 
         #endregion
