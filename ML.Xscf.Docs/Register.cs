@@ -36,7 +36,7 @@ namespace ML.Xscf.Docs
 
         public override string Name => "ML.Xscf.Docs";
         public override string Uid => "519E8526-A738-465A-9DB8-2762E8441762";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.0.2.2";//必须填写版本号
+        public override string Version => "0.0.2.6";//必须填写版本号
 
         public override string MenuName => "开发者文档";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
