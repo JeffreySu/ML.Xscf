@@ -67,7 +67,7 @@ namespace ML.Xscf.Docs.Functions
 
                        var mergeResult = LibGit2Sharp.Commands.Pull(
                                                     new Repository(copyDir),
-                                                    new Signature("JeffreySu", "www.jeffrey.su@gmail.com", SystemTime.Now),
+                                                    new Signature("zhao365845726@163.com", "zhao365845726@163.com", SystemTime.Now),
                                                     new PullOptions());
                        sb.AppendLine("已有文件存在，开始 pull 更新");
                        sb.AppendLine(mergeResult.Status.ToString());
