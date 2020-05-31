@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>0.0.2.7-beta1</Version>
+    <Version>0.0.2.12-beta1</Version>
     <AssemblyName>ML.Xscf.Docs</AssemblyName>
     <RootNamespace>ML.Xscf.Docs</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -23,6 +23,7 @@
       v0.0.1.91 MD文档框架引入
       v0.0.1.92 增加Md的公共文件，更新各依赖的版本
       v0.0.1.94 增加下载源码的功能
+      v0.0.2.12 增加自动下载Docs的功能
     </PackageReleaseNotes>
     <RepositoryUrl> https://github.com/zhao365845726/ML.Xscf.git </RepositoryUrl>
     <Configurations>Debug;Release;Test</Configurations>
@@ -61,7 +62,6 @@
 
   <ItemGroup>
     <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
-    <PackageReference Include="LibGit2Sharp.NativeBinaries" Version="2.0.312" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
